@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
+        android:inputType="textPassword"
         android:hint="Password"
         android:layout_marginTop="50dp"/>
 
@@ -27,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
+        android:inputType="textPassword"
         android:hint="Retype Password"
         android:layout_marginTop="50dp"/>
 
@@ -42,12 +44,12 @@
 
     <Button
         android:id="@+id/btnsignin"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_below="@id/btnsignup"
-        android:text="Sign In"
+        android:text="Already Have An Account ? Click To Login"
         android:layout_marginTop="10dp"/>
 
 </RelativeLayout>
