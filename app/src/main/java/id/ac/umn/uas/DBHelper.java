@@ -27,6 +27,8 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists users");
     }
 
+
+    //inser data into sqlite
     public Boolean insertData(String username, String email, String password){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -42,6 +44,46 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    //update data into sqlite
+    public Boolean updateData(String username, String password){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("password", password);
+        Cursor cursor = MyDB.rawQuery("Select * from users where username == ?", new String[] {username});
+        if(cursor.getCount() > 0){
+            long result = MyDB.update("users", contentValues, "username=?", new String[] {username});
+            if(result == -1){
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    //delete data into sqlite
+    public Boolean deleteData(String username){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from users where username == ?", new String[] {username});
+        if(cursor.getCount()>0){
+            long result = MyDB.delete("users", "username=?", new String[] {username});
+            if(result == -1){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
+    //checking duplicate username before insert into database
     public Boolean checkusername(String username){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("Select * from users where username == ?", new String[] {username});
@@ -53,6 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    //checking username and password before login
     public Boolean checkusernamepassword(String username, String password){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("Select * from users where username == ? and password == ?", new String[] {username, password});
